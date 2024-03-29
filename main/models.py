@@ -22,6 +22,12 @@ class Product(models.Model):
     sale = models.ForeignKey('Sale', on_delete=models.SET_NULL, blank=True, null=True)
     counter = models.PositiveIntegerField(default=0)    # счётчик покупок
 
+    def get_discounted_price(self):
+        if self.sale:
+            sale_percentage = self.sale.percent
+            discounted_price = self.price - (self.price * sale_percentage / 100)
+            return discounted_price
+
     def __str__(self):
         return f'{self.counter} {self.name}'
 

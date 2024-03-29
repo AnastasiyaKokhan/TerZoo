@@ -182,10 +182,10 @@
                                     </search>
                                     <ul class="header__up-link-list">
                                         <li class="header__up-list-item">
-                                            <a href="#">Главная</a>
+                                            <a href="{% url 'main' %}">Главная</a>
                                         </li>
                                         <li class="header__up-list-item">
-                                            <a href="#">Каталог</a>
+                                            <a href="{% url 'catalog' %}">Каталог</a>
                                         </li>
                                         <li class="header__up-list-item">
                                             <a href="#">Акции</a>
@@ -194,7 +194,7 @@
                                             <a href="#">Статьи</a>
                                         </li>
                                     </ul>
-                                    <a href="#" class="header__up-basket">
+                                    <a href="{% url 'basket' %}" class="header__up-basket">
                                         <div class="header__up-basket-img">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -402,19 +402,18 @@
                                             />
                                         </svg>
                                     </div>
-                                    <form action="{% url 'test' %}" method="POST">
+                                    <form action="{% url 'catalog' %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="text" name="search" placeholder="Поиск"/>
-                                        <button>поиск</button>
+                                        <input type="text" name="search" placeholder="Поиск" minlength="3"/>
                                     </form>
                                 </search>
                                 <nav class="header__bottom-nav">
                                     <ul class="header__bottom-nav-list">
                                         <li class="header__bottom-nav-item">
-                                            <a href="#">Главная </a>
+                                            <a href="{% url 'main' %}">Главная </a>
                                         </li>
                                         <li class="header__bottom-nav-item">
-                                            <a href="https://catalog-zoo.vercel.app/"> Каталог </a>
+                                            <a href="{% url 'catalog' %}"> Каталог </a>
                                         </li>
                                         <li class="header__bottom-nav-item">
                                             <a href="#">Акции </a>
@@ -508,7 +507,7 @@
                         <div class="container">
                             <div class="filter__wrap">
                                 {% for animal in animals %}
-                                    <a href="#" class="filter__item">
+                                    <a href="{% url 'animal_products' animal.id %}" class="filter__item">
                                     <div class="filter__item-img" style="background-image: url({{ animal.image.url }});">
                                     </div>
                                     <h3 class="filter__item-text">{{ animal.name }}</h3>
@@ -531,7 +530,7 @@
                                             <p><strong>Более 5000 товаров</strong> для животных в наличии</p>
                                             <p><strong>Вкусные сюрпризы</strong> для ваших питомцев в магазине</p>
                                         </div>
-                                        <a href="#" class="button"> Выбрать товар </a>
+                                        <a href="{% url 'catalog' %}" class="button"> Выбрать товар </a>
                                     </div>
                                 </div>
                                 <div class="about__second-block">
@@ -613,7 +612,7 @@
                                             </a>
                                             <ul class="slider__item-weight-list">
                                                 {% for value in product.productcount_set.all %}
-                                                <li class="slider__item-weight-list-item">{{ value.value }} <span>{{ value.unit }}.</span></li>
+                                                <li class="slider__item-weight-list-item">{{ value.value }} <span>{{ value.unit }}</span></li>
                                                 {% endfor %}
                                             </ul>
                                             <div class="slider__item-price-basket">
@@ -704,7 +703,7 @@
                                             </a>
                                             <ul class="slider__item-weight-list">
                                                 {% for value in product.productcount_set.all %}
-                                                <li class="slider__item-weight-list-item">{{ value.value }} <span>{{ value.unit }}.</span></li>
+                                                <li class="slider__item-weight-list-item">{{ value.value }} <span>{{ value.unit }}</span></li>
                                                 {% endfor %}
                                             </ul>
                                             <div class="slider__item-price-basket">
@@ -930,7 +929,7 @@
                                                         />
                                                     </svg>
                                                 </div>
-                                                <p>{{ article.date }}</p>
+                                                <p>{{ article.date|date:"d.m.Y" }}</p>
                                             </div>
                                         </div>
                                     </article>
@@ -1202,10 +1201,10 @@
                             <nav class="footer__nav">
                                 <ul class="footer__list">
                                     <li class="footer__list-item">
-                                        <a href="#"> Главная </a>
+                                        <a href="{% url 'main' %}"> Главная </a>
                                     </li>
                                     <li class="footer__list-item">
-                                        <a href="https://catalog-zoo.vercel.app/"> Каталог </a>
+                                        <a href="{% url 'catalog' %}"> Каталог </a>
                                     </li>
                                     <li class="footer__list-item">
                                         <a href="#"> Акции </a>
