@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "debug_toolbar",
     'main',
+    'cart',
+    'game_cookie',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+CART_SESSION_ID = 'cart'

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie</title>
+</head>
+<body>
+<div style="display: flex; justify-content: space-around;">
+    <h1>
+        Hello
+    </h1>
+    <div>
+        <input type="color" id="change_color">
+    </div>
+</div>
+
+<script>
+    document.body.style.background = getCookie('color_back')
+    let color = document.querySelector('#change_color')
+        color.addEventListener('input', fn)
+
+    function fn () {
+    document.body.style.background = color.value
+    document.cookie = `color_js = ${color.value}`
+    }
+
+    function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+     ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+</script>
+</body>
+</html>
