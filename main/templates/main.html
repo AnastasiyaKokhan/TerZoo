@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{% static 'css/main/style.css' %}" />
         {% block stylesheet %}
         {% endblock %}
-        <title>Главная</title>
+        <title>{% block title %}Главная{% endblock %}</title>
     </head>
     <body>
         <div class="modal__wrap">
@@ -423,7 +423,7 @@
                                         </li>
                                     </ul>
                                 </nav>
-                                <div class="header__bottom-basket">
+                                <a href="{% url 'basket' %}" class="header__bottom-basket">
                                     <div>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -453,7 +453,7 @@
                                         </svg>
                                     </div>
                                     <p>0</p>
-                                </div>
+                                </a>
                                 <div class="header__bottom-action">
                                     <div class="header__bottom-search-mob">
                                         <svg
@@ -471,7 +471,7 @@
                                             />
                                         </svg>
                                     </div>
-                                    <a href="#" class="header__bottom-basket-mob">
+                                    <a href="{% url 'basket' %}" class="header__bottom-basket-mob">
                                         <div class="header__bottom-basket-img">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -617,6 +617,10 @@
                                             </ul>
                                             <div class="slider__item-price-basket">
                                                 <p class="slider__item-price">{{ product.price }} BYN</p>
+                                                <form action="{% url 'cart_add' product.id %}" method="POST">
+                                                {{ cart_product_form }}
+                                                {% csrf_token %}
+                                                <button>
                                                 <div class="slider__item-basket">
                                                     <div class="slider__item-basket-text">+</div>
                                                     <div class="slider__item-basket-img">
@@ -636,6 +640,8 @@
                                                         </svg>
                                                     </div>
                                                 </div>
+                                                </button>
+                                                </form>
                                             </div>
                                             <button type="button" class="slider__item-btn">Купить в 1 клик</button>
                                         </article>

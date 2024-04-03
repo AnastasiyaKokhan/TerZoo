@@ -1,8 +1,8 @@
-from decimal import Decimal
-
-from django.shortcuts import render, redirect
-
 from .models import Animal, Product, Brand, Review, Article, ProductCategory
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+from cart.cart import Cart
+from cart.forms import CartAddProductForm
 
 
 # Create your views here.
@@ -16,6 +16,7 @@ def get_main_page(request):
     brands = Brand.objects.all
     reviews = Review.objects.all()
     articles = Article.objects.all()
+    cart_product_form = CartAddProductForm()
 
     context = {
         'animals': animals,
@@ -24,6 +25,7 @@ def get_main_page(request):
         'brands': brands,
         'reviews': reviews,
         'articles': articles,
+        'cart_product_form': cart_product_form,
     }
 
     return render(request, 'main.html', context)
@@ -33,11 +35,13 @@ def get_basket_page(request):
     popular_products = Product.objects.all().order_by('-counter')[:4]
     new_products = Product.objects.all().order_by('-id')[:4]
     articles = Article.objects.all()
+    cart = Cart(request)
 
     context = {
         'popular_products': popular_products,
         'new_products': new_products,
         'articles': articles,
+        'cart': cart,
     }
 
     return render(request, 'basket.html', context)
@@ -84,7 +88,7 @@ def get_catalog_page(request):
 
     if request.method == 'POST':
         if request.POST.get('date'):
-            sorted_products = Product.objects.order_by('-id')
+            sorted_products = products.order_by('-id')
         elif request.POST.get('low_high'):
             prices = []
             for product in products:
@@ -120,11 +124,11 @@ def get_catalog_page(request):
                     elif not product.sale and product.price == price:
                         sorted_products.append(product)
         elif request.POST.get('a_z'):
-            sorted_products = Product.objects.order_by('name')
+            sorted_products = products.order_by('name')
         elif request.POST.get('z_a'):
-            sorted_products = Product.objects.order_by('-name')
+            sorted_products = products.order_by('-name')
         elif request.POST.get('popular'):
-            sorted_products = Product.objects.order_by('-counter')
+            sorted_products = products.order_by('-counter')
 
     context = {
         'animals': animals,
@@ -313,3 +317,22 @@ def get_product_description_page(request, id):
     }
 
     return render(request, 'product_description.html', context)
+
+
+@require_POST
+def cart_add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product, quantity=cd['quantity'], override_quantity=cd['override'])
+    return redirect('main')
+
+
+def cart_remove(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    cart.remove(product)
+    return redirect('basket')
+
