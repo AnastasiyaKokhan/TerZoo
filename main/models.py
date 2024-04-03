@@ -24,12 +24,11 @@ class Product(models.Model):
 
     def get_discounted_price(self):
         if self.sale:
-            sale_percentage = self.sale.percent
-            discounted_price = self.price - (self.price * sale_percentage / 100)
+            discounted_price = self.price - (self.price * self.sale.percent / 100)
             return discounted_price
 
     def __str__(self):
-        return f'{self.counter} {self.name}'
+        return f'{self.brand} {self.name}'
 
 
 class Brand(models.Model):

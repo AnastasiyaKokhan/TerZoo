@@ -402,7 +402,7 @@
                                             />
                                         </svg>
                                     </div>
-                                    <form action="{% url 'catalog' %}" method="POST">
+                                    <form action="{% url 'search' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="text" name="search" placeholder="Поиск" minlength="3"/>
                                     </form>
