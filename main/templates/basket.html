@@ -305,7 +305,7 @@
                                             </defs>
                                         </svg>
                                     </div>
-                                    <p>0</p>
+                                    <p>{{ cart|length }}</p>
                                 </div>
                                 <div class="header__bottom-action">
                                     <div class="header__bottom-search-mob">
@@ -492,9 +492,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <a href="{% url 'order_create' %}">
                                         <button type="button">
                                             Оформить заказ
                                         </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -939,6 +941,6 @@
         <script defer src="{% static 'js/basket/slick.min.js' %}"></script>
         <script defer src="{% static 'js/basket/slider.js' %}"></script>
         <script src="{% static 'js/basket/modals.js' %}"></script>
-        <script src="{% static 'js/basket/basket.js' %}"></script>
+<!--        <script src="{% static 'js/basket/basket.js' %}"></script>-->
     </body>
 </html>

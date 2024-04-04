@@ -64,27 +64,31 @@ def get_catalog_page(request):
     sorted_products = None
 
     if request.method == 'POST':
+        print(request.POST)
         if request.POST.get('promotional'):
             category = request.POST.get('category')
-            brands = request.POST.getlist('brand')
+            brands1 = request.POST.getlist('brand')
             if request.POST.get('category'):
                 filtered_products = products.filter(sale=True, category_id=category)
+                print(filtered_products)
                 if request.POST.get('brand'):
-                    filtered_products = filtered_products.filter(brand_id__in=brands)
+                    filtered_products = filtered_products.filter(brand_id__in=brands1)
             elif request.POST.get('brand'):
-                filtered_products = products.filter(sale=True, brand_id__in=brands)
+                filtered_products = products.filter(sale=True, brand_id__in=brands1)
             else:
                 filtered_products = products.filter(sale=True)
+            print(filtered_products)
         elif request.POST.get('category'):
             category = request.POST.get('category')
-            brands = request.POST.getlist('brand')
+            brands1 = request.POST.getlist('brand')
             if request.POST.get('brand'):
-                filtered_products = products.filter(category_id=category, brand_id__in=brands)
+                filtered_products = products.filter(category_id=category, brand_id__in=brands1)
             else:
                 filtered_products = products.filter(category_id=category)
         elif request.POST.get('brand'):
-            brands = request.POST.getlist('brand')
-            filtered_products = products.filter(brand_id__in=brands)
+            brands1 = request.POST.getlist('brand')
+            filtered_products = products.filter(brand_id__in=brands1)
+    print(filtered_products)
 
     if request.method == 'POST':
         if request.POST.get('date'):
@@ -129,7 +133,7 @@ def get_catalog_page(request):
             sorted_products = products.order_by('-name')
         elif request.POST.get('popular'):
             sorted_products = products.order_by('-counter')
-
+    print(filtered_products)
     context = {
         'animals': animals,
         'categories': categories,

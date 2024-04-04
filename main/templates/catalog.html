@@ -529,17 +529,15 @@
                                         </h3>
                                         <ul class="filter__type-list">
                                             {% for category in categories %}
-                                            <li class="filter__type-list-item">
-                                                <input type="radio" id="{{ category.id }}" value="{{ category.id }}" name="category" class="filter__type-list-item-hdie">
+                                            <div class="" style="display: flex;">
+                                                <input type="radio" id="{{ category.id }}" value="{{ category.id }}" name="category">
                                                 <label for="{{ category.id }}" class="filter__type-list-item-label">
-                                                    <div>
 
-                                                    </div>
                                                     <p>
                                                         {{ category.name }}
                                                     </p>
                                                 </label>
-                                            </li>
+                                            </div>
                                             {% endfor %}
                                         </ul>
                                     </div>
@@ -549,17 +547,14 @@
                                         </h3>
                                         <ul class="brand__list">
                                             {% for brand in brands %}
-                                            <li class="brand__list-item">
-                                                <input type="checkbox" id="{{ brand.id }}" value="{{ brand.id }}" name="brand" class="brand__type-list-item-hdie">
+                                            <div class="" style="display: flex;">
+                                                <input type="checkbox" id="{{ brand.id }}" value="{{ brand.id }}" name="brand">
                                                 <label for="{{ brand.id }}" class="brand__list-item-label">
-                                                    <div>
-
-                                                    </div>
                                                     <p>
                                                         {{ brand.name }}
                                                     </p>
                                                 </label>
-                                            </li>
+                                            </div>
                                             {% endfor %}
                                         </ul>
                                     </div>
