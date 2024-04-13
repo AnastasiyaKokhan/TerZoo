@@ -1,0 +1,24 @@
+.add_animal {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+    margin: 20px;
+    border: solid 2px #008080;
+    border-radius: 15px;
+}
+
+.add_animal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add_animal input {
+    margin: 10px;
+}
+
+.add_animal button {
+    margin: 10px;
+    width: 100px;
+    background: #ccece1;
+}

@@ -404,7 +404,10 @@
                                     </div>
                                     <form action="{% url 'search' %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="text" name="search" placeholder="Поиск" minlength="3"/>
+                                        <input type="text" name="search" id="search" placeholder="Поиск" minlength="3"/>
+                                        <div class="search_result">
+
+                                        </div>
                                     </form>
                                 </search>
                                 <nav class="header__bottom-nav">
@@ -452,7 +455,7 @@
                                             </defs>
                                         </svg>
                                     </div>
-                                    <p>{{cart|length}}</p>
+                                    <p>{{ cart|length }}</p>
                                 </a>
                                 <div class="header__bottom-action">
                                     <div class="header__bottom-search-mob">
@@ -488,7 +491,7 @@
                                                 />
                                             </svg>
                                         </div>
-                                        <div class="header__bottom-basket-value">{{cart|length}}</div>
+                                        <div class="header__bottom-basket-value">{{ cart|length }}</div>
                                     </a>
                                     <div class="header__bottom-burger">
                                         <span> </span>
@@ -507,13 +510,7 @@
                     <section class="filter">
                         <div class="container">
                             <div class="filter__wrap">
-                                {% for animal in animals %}
-                                    <a href="{% url 'animal_products' animal.id %}" class="filter__item">
-                                    <div class="filter__item-img" style="background-image: url({{ animal.image.url }});">
-                                    </div>
-                                    <h3 class="filter__item-text">{{ animal.name }}</h3>
-                                    </a>
-                                {% endfor %}
+
                             </div>
                         </div>
                     </section>
@@ -1333,6 +1330,7 @@
         <script defer src="{% static 'js/main/slick.min.js' %}"></script>
         <script defer src="{% static 'js/main/slider.js' %}"></script>
         <script src="{% static 'js/main/modals.js' %}"></script>
+        <script src="{% static 'js/main/animals_and_search.js' %}"></script>
 <!--        <script src="{% static 'js/main/basket.js' %}"></script>-->
     </body>
 </html>

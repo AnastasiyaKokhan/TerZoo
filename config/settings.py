@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'game_cookie',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [

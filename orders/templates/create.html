@@ -5,22 +5,21 @@
 {% block title %}
 Заказ
 {% endblock %}
-
 {% block content %}
 <ul>
     {% for item in cart %}
         <li class="item">
-            {{ item.quantity }}x{{ item.product.name }}
-            <span>${{ item.total_price }}</span>
+            {{ item.quantity }} x {{ item.product.name }}
+            <span>{{ item.total_price }}BYN</span>
         </li>
     {% endfor %}
 </ul>
-<p>Total: ${{ cart.get_total_price }}</p>
+<p>Всего: {{ cart.get_total_price }}BYN</p>
 <form action="" method="POST">
     {% csrf_token %}
     <table class="order-form">
     {{ form.as_table }}
-    <p><input type="submit" value="Place order"></p>
     </table>
+    <p><input type="submit" value="Оформить заказ"></p>
 </form>
 {% endblock %}

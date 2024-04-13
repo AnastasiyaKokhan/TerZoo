@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/add_animal/style.css' %}">
+{% endblock %}
+{% block title %}Добавление животного{% endblock %}
+{% block content %}
+<div class="add_animal">
+<h3 >Добавление животного</h3>
+<form action="" method="POST" id="add_animal_form" enctype="multipart/form-data">
+   {% csrf_token %}
+    <div>
+        <label for="name"><strong>Название животного:</strong></label>
+        <input type="text" name="name" id="name" placeholder="введите название животного">
+    </div>
+    <div>
+        <label for="image"><strong>Картинка:</strong></label>
+        <input type="file" name="image" id="image">
+    </div>
+</form>
+<button id="add_animal_button">добавить</button>
+</div>
+<script src="{% static 'js/add_animal/add_animal.js' %}"></script>
+{% endblock %}

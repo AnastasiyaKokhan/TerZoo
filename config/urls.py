@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('orders/', include('orders.urls')),
     path('cookie/', include('game_cookie.urls')),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:

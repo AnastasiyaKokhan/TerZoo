@@ -276,7 +276,7 @@
                                         </li>
                                     </ul>
                                 </nav>
-                                <div class="header__bottom-basket">
+                                <a href="{% url 'basket' %}" class="header__bottom-basket">
                                     <div>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -305,8 +305,8 @@
                                             </defs>
                                         </svg>
                                     </div>
-                                    <p>0</p>
-                                </div>
+                                    <p>{{ cart|length }}</p>
+                                </a>
                                 <div class="header__bottom-action">
                                     <div class="header__bottom-search-mob">
                                         <svg
@@ -324,7 +324,7 @@
                                             />
                                         </svg>
                                     </div>
-                                    <a href="#" class="header__bottom-basket-mob">
+                                    <a href="{% url 'basket' %}" class="header__bottom-basket-mob">
                                         <div class="header__bottom-basket-img">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +341,7 @@
                                                 />
                                             </svg>
                                         </div>
-                                        <div class="header__bottom-basket-value">0</div>
+                                        <div class="header__bottom-basket-value">{{ cart|length }}</div>
                                     </a>
                                     <div class="header__bottom-burger">
                                         <span> </span>
@@ -413,7 +413,7 @@
                                 <h1 class="about__product-title">
                                     {{ product.name }}
                                 </h1>
-                                <a href="#" class="about__product-link">
+                                <a href="{% url 'catalog' %}" class="about__product-link">
                                     Смотреть все товары бренда {{ product.brand }}
                                 </a>
                             </div>

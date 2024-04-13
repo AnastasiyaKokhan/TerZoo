@@ -60,39 +60,30 @@ def get_catalog_page(request):
     low_high = request.POST.get('low_high')
     high_low = request.POST.get('high_low')
     popular = request.POST.get('popular')
-    filtered_products = None
-    sorted_products = None
 
     if request.method == 'POST':
-        print(request.POST)
+        get_category = request.POST.get('category')
+        get_brands = request.POST.getlist('brand')
         if request.POST.get('promotional'):
-            category = request.POST.get('category')
-            brands1 = request.POST.getlist('brand')
             if request.POST.get('category'):
-                filtered_products = products.filter(sale=True, category_id=category)
-                print(filtered_products)
+                products = products.filter(sale=True, category_id=get_category)
                 if request.POST.get('brand'):
-                    filtered_products = filtered_products.filter(brand_id__in=brands1)
+                    products = products.filter(brand_id__in=get_brands)
             elif request.POST.get('brand'):
-                filtered_products = products.filter(sale=True, brand_id__in=brands1)
+                products = products.filter(sale=True, brand_id__in=get_brands)
             else:
-                filtered_products = products.filter(sale=True)
-            print(filtered_products)
+                products = products.filter(sale=True)
         elif request.POST.get('category'):
-            category = request.POST.get('category')
-            brands1 = request.POST.getlist('brand')
             if request.POST.get('brand'):
-                filtered_products = products.filter(category_id=category, brand_id__in=brands1)
+                products = products.filter(category_id=get_category, brand_id__in=get_brands)
             else:
-                filtered_products = products.filter(category_id=category)
+                products = products.filter(category_id=get_category)
         elif request.POST.get('brand'):
-            brands1 = request.POST.getlist('brand')
-            filtered_products = products.filter(brand_id__in=brands1)
-    print(filtered_products)
+            products = products.filter(brand_id__in=get_brands)
 
     if request.method == 'POST':
         if request.POST.get('date'):
-            sorted_products = products.order_by('-id')
+            products = products.order_by('-id')
         elif request.POST.get('low_high'):
             prices = []
             for product in products:
@@ -110,6 +101,7 @@ def get_catalog_page(request):
                         sorted_products.append(product)
                     elif not product.sale and product.price == price:
                         sorted_products.append(product)
+            products = sorted_products
         elif request.POST.get('high_low'):
             prices = []
             for product in products:
@@ -127,13 +119,14 @@ def get_catalog_page(request):
                         sorted_products.append(product)
                     elif not product.sale and product.price == price:
                         sorted_products.append(product)
+            products = sorted_products
         elif request.POST.get('a_z'):
-            sorted_products = products.order_by('name')
+            products = products.order_by('name')
         elif request.POST.get('z_a'):
-            sorted_products = products.order_by('-name')
+            products = products.order_by('-name')
         elif request.POST.get('popular'):
-            sorted_products = products.order_by('-counter')
-    print(filtered_products)
+            products = products.order_by('-counter')
+
     context = {
         'animals': animals,
         'categories': categories,
@@ -147,8 +140,6 @@ def get_catalog_page(request):
         'low_high': low_high,
         'high_low': high_low,
         'popular': popular,
-        'filtered_products': filtered_products,
-        'sorted_products': sorted_products,
     }
 
     return render(request, 'catalog.html', context)
@@ -190,9 +181,6 @@ def product_search_view(request):
             if len(request.POST.get('search')) >= 3:
                 product_search = Product.objects.filter(name__icontains=search)
                 context['product_search'] = product_search
-                # if request.POST.get('date'):
-                #     product_search = product_search.order_by('-id')
-                #     print(product_search)
 
     return render(request, 'catalog.html', context)
 
@@ -211,35 +199,30 @@ def get_animal_products(request, id):
     low_high = request.POST.get('low_high')
     high_low = request.POST.get('high_low')
     popular = request.POST.get('popular')
-    filtered_products = None
-    sorted_products = None
 
     if request.method == 'POST':
+        get_category = request.POST.get('category')
+        get_brands = request.POST.getlist('brand')
         if request.POST.get('promotional'):
-            category = request.POST.get('category')
-            brands = request.POST.getlist('brand')
             if request.POST.get('category'):
-                filtered_products = products.filter(sale=True, category_id=category)
+                products = products.filter(sale=True, category_id=get_category)
                 if request.POST.get('brand'):
-                    filtered_products = filtered_products.filter(brand_id__in=brands)
+                    products = products.filter(brand_id__in=get_brands)
             elif request.POST.get('brand'):
-                filtered_products = products.filter(sale=True, brand_id__in=brands)
+                products = products.filter(sale=True, brand_id__in=get_brands)
             else:
-                filtered_products = products.filter(sale=True)
+                products = products.filter(sale=True)
         elif request.POST.get('category'):
-            category = request.POST.get('category')
-            brands = request.POST.getlist('brand')
             if request.POST.get('brand'):
-                filtered_products = products.filter(category_id=category, brand_id__in=brands)
+                products = products.filter(category_id=get_category, brand_id__in=get_brands)
             else:
-                filtered_products = products.filter(category_id=category)
+                products = products.filter(category_id=get_category)
         elif request.POST.get('brand'):
-            brands = request.POST.getlist('brand')
-            filtered_products = products.filter(brand_id__in=brands)
+            products = products.filter(brand_id__in=get_brands)
 
     if request.method == 'POST':
         if request.POST.get('date'):
-            sorted_products = products.order_by('-id')
+            products = products.order_by('-id')
         elif request.POST.get('low_high'):
             prices = []
             for product in products:
@@ -257,6 +240,7 @@ def get_animal_products(request, id):
                         sorted_products.append(product)
                     elif not product.sale and product.price == price:
                         sorted_products.append(product)
+            products = sorted_products
         elif request.POST.get('high_low'):
             prices = []
             for product in products:
@@ -274,12 +258,13 @@ def get_animal_products(request, id):
                         sorted_products.append(product)
                     elif not product.sale and product.price == price:
                         sorted_products.append(product)
+            products = sorted_products
         elif request.POST.get('a_z'):
-            sorted_products = products.order_by('name')
+            products = products.order_by('name')
         elif request.POST.get('z_a'):
-            sorted_products = products.order_by('-name')
+            products = products.order_by('-name')
         elif request.POST.get('popular'):
-            sorted_products = products.order_by('-counter')
+            products = products.order_by('-counter')
 
     context = {
         'animals': animals,
@@ -294,8 +279,6 @@ def get_animal_products(request, id):
         'low_high': low_high,
         'high_low': high_low,
         'popular': popular,
-        'filtered_products': filtered_products,
-        'sorted_products': sorted_products,
     }
 
     return render(request, 'catalog.html', context)
@@ -340,3 +323,7 @@ def cart_remove(request, product_id):
     cart.remove(product)
     return redirect('basket')
 
+
+def add_animal(request):
+
+    return render(request, 'add_animal.html')
