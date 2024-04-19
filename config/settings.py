@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from dotenv import dotenv_values
 from pathlib import Path
+
+env_keys = dotenv_values()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +28,7 @@ SECRET_KEY = 'django-insecure-g-6zwz8qxvq&q6*!p-m6sl*$os5(m9%17*=fj_xkgwatcut^v8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'AnastasiyaKokhan.pythonanywhere.com']
 
 
 # Application definition
@@ -87,12 +90,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'terdb',
-        'USER': 'teruser',
-        'PASSWORD': 'admin',
+        'ENGINE': env_keys.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        'NAME': env_keys.get('POSTGRES_DB_NAME', os.path.join(BASE_DIR, "db.sqlite3")),
+        'USER': env_keys.get('DB_USERNAME'),
+        'PASSWORD': env_keys.get('DB_PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -132,6 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
