@@ -13,12 +13,12 @@ def order_create(request):
         if form.is_valid():
             order = form.save()
             for item in cart:
-                OrderItem.objects.create(order=order,
+                new_order_item = OrderItem(order=order,
                                          product=item['product'],
-                                         price=item['price'],
+                                         price=float(item['price']),
                                          quantity=item['quantity'])
-            # очистка корзины
-            cart.clear()
+                new_order_item.save()
+            # cart.clear()
             return render(request, 'created.html', {'order': order})
     else:
         form = OrderCreateForm()

@@ -327,3 +327,7 @@ def cart_remove(request, product_id):
 def add_animal(request):
 
     return render(request, 'add_animal.html')
+
+
+def get_file(request):
+    return render(request, 'file2.html')

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import get_main_page, get_basket_page, get_product_description_page, get_catalog_page, get_animal_products, \
-    product_search_view, cart_add, cart_remove, add_animal
+    product_search_view, cart_add, cart_remove, add_animal, get_file
 
 urlpatterns = [
     path('', get_main_page, name='main'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('add/<int:product_id>/', cart_add, name='cart_add'),
     path('remove/<int:product_id>/', cart_remove, name='cart_remove'),
     path('add_animal/', add_animal, name='add_animal'),
+    path('file/', get_file),
 ]
