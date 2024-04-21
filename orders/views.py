@@ -18,7 +18,7 @@ def order_create(request):
                                            price=float(item['price']),
                                            quantity=item['quantity'])
                 new_order_item.save()
-            # cart.clear()
+            cart.clear()
             return render(request, 'created.html', {'order': order})
     else:
         form = OrderCreateForm()

@@ -325,7 +325,6 @@ def cart_remove(request, product_id):
 
 
 def add_animal(request):
-
     return render(request, 'add_animal.html')
 
 
